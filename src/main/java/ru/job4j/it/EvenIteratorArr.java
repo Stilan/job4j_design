@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 public class EvenIteratorArr implements Iterator<Integer> {
     private final int[] data;
     private int point = 0;
-
     public EvenIteratorArr(int[] data) {
         this.data = data;
     }
@@ -19,6 +18,7 @@ public class EvenIteratorArr implements Iterator<Integer> {
     public boolean hasNext() {
         for (int i = point; i < data.length; i++) {
             if (isNumberIsEven(data[i])) {
+                point = i;
                 return true;
             }
         }
@@ -29,9 +29,6 @@ public class EvenIteratorArr implements Iterator<Integer> {
     public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
-        }
-        if (!isNumberIsEven(data[point])) {
-            point++;
         }
         return data[point++];
     }
