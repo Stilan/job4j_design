@@ -17,16 +17,15 @@ public class SimpleArray<T> implements Iterable<T> {
         return array;
     }
 
+    public SimpleArray() {
+    }
+
     public void add(T model) {
        array[size] = model;
        size++;
     }
     public void set(int index, T model) {
-        try {
-            Objects.checkIndex(index, size);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
+        Objects.checkIndex(index, size);
         array[index] = model;
     }
 
@@ -47,7 +46,7 @@ public class SimpleArray<T> implements Iterable<T> {
         return new Iterator<>() {
             @Override
             public boolean hasNext() {
-                return i < array.length;
+                return i < size;
             }
 
             @Override

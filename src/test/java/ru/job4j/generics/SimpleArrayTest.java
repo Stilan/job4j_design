@@ -44,4 +44,20 @@ public class SimpleArrayTest  {
         simpleArray.add("C++");
         assertThat(simpleArray.get(0),is("java"));
     }
+    @Test
+    public void TestIterator(){
+        SimpleArray<Object> simpleArray = new SimpleArray<>(new Object[2]);
+        assertThat(simpleArray.iterator().hasNext(),is(false));
+    }
+
+    @Test
+    public void TestIterator2(){
+        SimpleArray<Object> simpleArray = new SimpleArray<>(new Object[0]);
+        assertThat(simpleArray.iterator().hasNext(),is(false));
+    }
+    @Test
+    public void TestIterator3(){
+        SimpleArray<Object> simpleArray = new SimpleArray<>();
+        assertThat(simpleArray.iterator().hasNext(),is(false));
+    }
 }
