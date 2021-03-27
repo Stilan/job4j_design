@@ -16,8 +16,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     public boolean replace(String id, T model) {
         int index = searchById(id);
         if (index != -1) {
-          mem.add(index, model);
-          mem.remove(index);
+          mem.set(index, model);
             return true;
         }
         return false;
