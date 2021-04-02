@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleArray<T> implements Iterable<T>{
+public class SimpleArray<T> implements Iterable<T> {
     private Object[] container = new Object[10];
     private int size;
-    int modCount = 0;
+    private int modCount = 0;
     public T get(int index) {
         Objects.checkIndex(index, size);
         T t = (T) container[index];
@@ -19,7 +19,7 @@ public class SimpleArray<T> implements Iterable<T>{
          modCount++;
         if (size == container.length) {
             Object[] copy = container;
-            container = new Object[size + 1];
+            container = new Object[size + 10];
             System.arraycopy(copy, 0, container, 0, copy.length);
         }
             container[size] = model;
@@ -44,7 +44,6 @@ public class SimpleArray<T> implements Iterable<T>{
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-
                 return (T) container[i++];
             }
         };
