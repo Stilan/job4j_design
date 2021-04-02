@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleArray<T> implements Iterable<T> {
+public class SimpleArray<T> implements Iterable<T>{
     private Object[] container = new Object[10];
     private int size;
     int modCount = 0;
