@@ -12,7 +12,7 @@ public class SimpleStack<T> {
         linked.addFist(value);
         size++;
     }
-    public boolean sizeStack() {
+    public boolean isEmpty() {
         return size == 0;
     }
 }

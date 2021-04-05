@@ -5,13 +5,10 @@ public class SimpleQueue<T> {
     private final SimpleStack<T> out = new SimpleStack<>();
 
     public T poll() {
-        if (out.sizeStack()) {
-            while (!in.sizeStack()) {
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
                 out.push(in.pop());
             }
-        }
-        if (!out.sizeStack()) {
-            return out.pop();
         }
           return out.pop();
     }
