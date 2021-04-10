@@ -15,7 +15,7 @@ public class SimpleSet<T> implements Set<T> {
             return true;
         } else {
             for (T t : set) {
-                if (!(t == value || t.equals(value))) {
+                if (!Objects.equals(t, value)) {
                         set.add(value);
                         return true;
                 }
@@ -27,7 +27,7 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean contains(T value) {
         for (T t: set) {
-            if (t == value || t.equals(value)) {
+            if (Objects.equals(t, value)) {
                 return true;
             }
         }
