@@ -15,7 +15,7 @@ public class SimpleSet<T> implements Set<T> {
             return true;
         } else {
             for (T t : set) {
-                if (!Objects.equals(t, value)) {
+                if (!contains(value)) {
                         set.add(value);
                         return true;
                 }
