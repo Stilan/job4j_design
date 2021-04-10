@@ -19,7 +19,7 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean contains(T value) {
         for (T t: set) {
-            if (Objects.equals(t, value)){
+            if (Objects.equals(t, value)) {
                 return true;
             }
         }
