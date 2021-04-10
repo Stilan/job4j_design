@@ -7,7 +7,6 @@ import java.util.Objects;
 public class SimpleSet<T> implements Set<T> {
 
     private SimpleArray<T> set = new SimpleArray<>();
-
     @Override
     public boolean add(T value) {
         if (!contains(value)) {
