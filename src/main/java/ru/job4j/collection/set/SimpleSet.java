@@ -9,7 +9,7 @@ public class SimpleSet<T> implements Set<T> {
     private SimpleArray<T> set = new SimpleArray<>();
     @Override
     public boolean add(T value) {
-        if (!contains(value)) {
+        if (!contains(value)){
             set.add(value);
             return true;
         }
