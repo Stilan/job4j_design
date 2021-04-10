@@ -10,16 +10,9 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public boolean add(T value) {
-        if (!set.iterator().hasNext()) {
+        if (!contains(value)) {
             set.add(value);
             return true;
-        } else {
-            for (T t : set) {
-                if (!contains(value)) {
-                        set.add(value);
-                        return true;
-                }
-            }
         }
         return false;
     }
