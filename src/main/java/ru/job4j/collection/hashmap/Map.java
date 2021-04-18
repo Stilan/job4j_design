@@ -1,4 +1,4 @@
-package ru.job4j.collection.hashMap;
+package ru.job4j.collection.hashmap;
 
 public interface Map<K, V> extends Iterable<V> {
     boolean insert(K key, V value);

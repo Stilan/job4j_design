@@ -1,10 +1,6 @@
-package ru.job4j.collection.hashMap;
-
-import org.w3c.dom.Node;
-import ru.job4j.collection.SimpleLinkedList;
+package ru.job4j.collection.hashmap;
 
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -14,8 +10,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
      private int size = 0;
      private int modCount = 0;
     static int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int h = key.hashCode();
+        return (key == null) ? 0 : h ^ (h >>> 16);
     }
     private void resize(int size) {
         Node<K, V>[] tab = table;
@@ -113,7 +109,6 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
             }
         };
     }
-
     private static class Node<K, V> {
         final int hash;
         final K key;
