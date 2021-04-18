@@ -5,6 +5,7 @@ import ru.job4j.collection.SimpleLinkedList;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SimpleHashMap<K, V> implements Map<K, V> {
 
@@ -15,8 +16,20 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         int h;
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
     }
+    private void resize(int size) {
+        Node<K, V>[] tab = table;
+        table = new Node[size * 2];
+        for (Node<K, V> e : tab) {
+            int hash = hash(e.key);
+            int index = hash & (table.length - 1);
+            table[index] = new Node<>(e.hash, e.key, e.value);
+        }
+    }
     @Override
     public boolean insert(K key, V value) {
+        if (size == table.length) {
+            resize(size);
+        }
         int hash = hash(key);
         int index = hash & (table.length - 1);
         Node<K, V> e = table[index];
@@ -24,9 +37,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
             table[index] = new Node<>(hash(key), key, value);
             size++;
             return true;
-        } else if (e.hash == hash && e.key == null || (key != null && key.equals(e.key))) {
+        } else if (e.hash == hash &&  (key != null && key.equals(e.key))) {
            table[index] = new Node<>(hash(key), key, value);
-           size++;
            return true;
         }
         return false;
@@ -38,9 +50,11 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         int hash = hash(key);
         int index = hash & (table.length - 1);
          e = table[index];
-        if (e.hash == hash && e.key == null || (key != null && key.equals(e.key))) {
-                return e.value;
-        }
+         if (e != null) {
+             if (e.hash == hash && key == null || (key != null && key.equals(e.key))) {
+                 return e.value;
+             }
+         }
         return null;
     }
 
@@ -50,17 +64,46 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         int hash = hash(key);
         int index = hash & (table.length - 1);
         e = table[index];
-        if (e.hash == hash && e.key == null || (key != null && key.equals(e.key))) {
-            table[index] = null;
-            size--;
-            return true;
+        if (e != null) {
+            if (e.hash == hash && (key != null && key.equals(e.key))) {
+                table[index] = null;
+                size--;
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public Iterator<K> iterator() {
-        return null;
+    public Iterator<V> iterator() {
+        return new Iterator<V>() {
+            int i = 0;
+            SimpleHashMap.Node<K, V> node = null;
+            int index = 0;
+            @Override
+            public boolean hasNext() {
+                if (i >= table.length) {
+                    return false;
+                }
+                    node = table[i];
+                    while (i < table.length) {
+                        node = table[i];
+                        if (node != null) {
+                            return true;
+                        } else if (node == null) {
+                            i++;
+                        }
+                    }
+                    return node != null;
+            }
+            @Override
+            public V next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return table[i++].value;
+            }
+        };
     }
 
     private static class Node<K, V> {
