@@ -3,6 +3,7 @@ package ru.job4j.collection.hashMap;
 import org.w3c.dom.Node;
 import ru.job4j.collection.SimpleLinkedList;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -11,7 +12,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
      private Node<K, V>[] table = new Node[16];
      private int size = 0;
-
+     private int modCount = 0;
     static int hash(Object key) {
         int h;
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
@@ -35,6 +36,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         Node<K, V> e = table[index];
         if (e == null) {
             table[index] = new Node<>(hash(key), key, value);
+            modCount++;
             size++;
             return true;
         } else if (e.hash == hash &&  (key != null && key.equals(e.key))) {
@@ -67,6 +69,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         if (e != null) {
             if (e.hash == hash && (key != null && key.equals(e.key))) {
                 table[index] = null;
+                modCount--;
                 size--;
                 return true;
             }
@@ -77,6 +80,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
     @Override
     public Iterator<V> iterator() {
         return new Iterator<V>() {
+            int expectedModCount = modCount;
             int i = 0;
             SimpleHashMap.Node<K, V> node = null;
             int index = 0;
@@ -100,6 +104,9 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
             public V next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
+                }
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
                 }
                 return table[i++].value;
             }
