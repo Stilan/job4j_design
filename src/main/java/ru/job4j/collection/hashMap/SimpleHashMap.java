@@ -41,6 +41,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
             return true;
         } else if (e.hash == hash &&  (key != null && key.equals(e.key))) {
            table[index] = new Node<>(hash(key), key, value);
+           modCount++;
            return true;
         }
         return false;
@@ -69,7 +70,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         if (e != null) {
             if (e.hash == hash && (key != null && key.equals(e.key))) {
                 table[index] = null;
-                modCount--;
+                modCount++;
                 size--;
                 return true;
             }
