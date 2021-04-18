@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 public class SimpleHashMap<K, V> implements Map<K, V> {
 
-     private Node<K, V>[] table = new Node[16];
+     private Node<K, V>[] table = new Node[16] ;
      private int size = 0;
      private int modCount = 0;
     static int hash(Object key) {
