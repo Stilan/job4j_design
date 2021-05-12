@@ -22,15 +22,25 @@ public class AnalizeTest  {
         previous.add(new User(4, "Дима"));
         previous.add(new User(5, "Саша"));
         List<User> current = new ArrayList<>();
-        current.add(new User(1, "Вася"));
-        current.add(new User(2, "Коля"));
-        current.add(new User(3, "Толя"));
-        current.add(new User(4, "Дима"));
         Info info = new Info();
         info.added = 0;
         info.changed = 0;
-        info.deleted = 1;
+        info.deleted = 5;
         assertThat(analize.diff(previous, current),is(info));
+         current.add(new User(1, "Вася"));
+         current.add(new User(2, "Коля"));
+         current.add(new User(3, "Толя"));
+         current.add(new User(4, "Дима"));
+         current.add(new User(5, "Вася"));
+         current.add(new User(6, "Коля"));
+         current.add(new User(7, "Толя"));
+         current.add(new User(8, "Дима"));
+         current.add(new User(9, "Вася"));
+         current.add(new User(10, "Коля"));
+         info.added = 10;
+         info.changed = 1;
+         info.deleted = 0;
+         assertThat(analize.diff(previous, current),is(info));
     }
      @Test
      public void diffTestChanged(){
