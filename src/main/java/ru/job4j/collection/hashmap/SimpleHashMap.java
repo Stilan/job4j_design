@@ -1,8 +1,6 @@
 package ru.job4j.collection.hashmap;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SimpleHashMap<K, V> implements Map<K, V> {
 
