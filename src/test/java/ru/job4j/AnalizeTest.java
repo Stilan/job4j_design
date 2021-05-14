@@ -26,7 +26,8 @@ public class AnalizeTest  {
         info.added = 0;
         info.changed = 0;
         info.deleted = 5;
-        assertThat(analize.diff(previous, current),is(info));
+         assertThat(analize.diff(previous, current),is(info));
+         previous = new ArrayList<>(current);
          current.add(new User(1, "Вася"));
          current.add(new User(2, "Коля"));
          current.add(new User(3, "Толя"));
@@ -38,7 +39,7 @@ public class AnalizeTest  {
          current.add(new User(9, "Вася"));
          current.add(new User(10, "Коля"));
          info.added = 10;
-         info.changed = 1;
+         info.changed = 0;
          info.deleted = 0;
          assertThat(analize.diff(previous, current),is(info));
     }

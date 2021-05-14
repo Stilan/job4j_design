@@ -3,8 +3,8 @@ package ru.job4j;
 import java.util.*;
 
 public class Analize {
-    static int sumDeleted = 0;
     public Info diff(List<User> previous, List<User> current) {
+        int sumDeleted = 0;
         Info info = new Info();
         info.added = 0;
         Map<Integer, User> userMap = new HashMap<>();
@@ -17,9 +17,11 @@ public class Analize {
             } else if (!userMap.containsKey(users.id)) {
                 info.deleted++;
             }
+
         }
         sumDeleted += info.deleted;
-        info.added = userMap.size() + sumDeleted - previous.size();
+        info.added = userMap.size() - previous.size() + sumDeleted;
+
         return info;
     }
 
