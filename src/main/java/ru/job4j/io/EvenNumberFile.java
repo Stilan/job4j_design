@@ -12,7 +12,7 @@ public class EvenNumberFile {
             while ((read = fileInputStream.read()) != -1) {
                 text.append((char) read);
             }
-            String[] str = text.toString().split("\n");
+            String[] str = text.toString().split(System.lineSeparator());
             for (String line : str) {
                 int num = Integer.parseInt(line);
                 boolean rsl = num % 2 == 0;
