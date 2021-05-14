@@ -18,11 +18,20 @@ public class LogFilter {
         }
         return stringList;
     }
+    public static void save(List<String> log, String file) {
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)))) {
+            for (String strList : log) {
+                out.println(strList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
         for (String s:log) {
             System.out.println(s);
         }
-
+        save(log, "404.txt");
     }
 }
