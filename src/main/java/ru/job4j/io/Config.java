@@ -17,20 +17,24 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
-                if (line.contains("#")) {
+                if (line.contains("#") || line.equals("")) {
                     continue;
                 }
-               String[] str1 = line.split("=");
-               values.put(str1[0], str1[1]);
+                    String[] strAr = line.split("=");
+                   if (strAr.length != 2 || strAr[0].equals("")) {
+                       throw new Exception();
+                   }
+                    values.put(strAr[0], strAr[1]);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
+
     }
 
     public String value(String key) {
       //  throw new UnsupportedOperationException("Don't impl this method yet!");
-        return values.get(key);
+            return this.values.get(key);
     }
 
     @Override
