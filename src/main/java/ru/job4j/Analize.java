@@ -12,12 +12,13 @@ public class Analize {
             userMap.put(users.id, users);
         }
         for (User users: previous) {
-            if (userMap.containsKey(users.id) && !userMap.containsValue(users)) {
-                info.changed++;
-            } else if (!userMap.containsKey(users.id)) {
+            if (userMap.containsKey(users.id)) {
+                if (!userMap.get(users.id).equals(users)) {
+                    info.changed++;
+                }
+            } else  {
                 info.deleted++;
             }
-
         }
         sumDeleted += info.deleted;
         info.added = userMap.size() - previous.size() + sumDeleted;
