@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 
 public class Analizy {
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         boolean inactive = false;
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
