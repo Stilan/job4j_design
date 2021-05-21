@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class AnalizeTest  {
 
     @Test
-   public void diffTestDeleted(){
+   public void diffTestDeleted() {
         Analize analize = new Analize();
         List<User> previous = new ArrayList<>();
         previous.add(new User(1, "Вася"));
@@ -26,7 +26,7 @@ public class AnalizeTest  {
         info.added = 0;
         info.changed = 0;
         info.deleted = 5;
-         assertThat(analize.diff(previous, current),is(info));
+         assertThat(analize.diff(previous, current), is(info));
          previous = new ArrayList<>(current);
          current.add(new User(1, "Вася"));
          current.add(new User(2, "Коля"));
@@ -41,10 +41,10 @@ public class AnalizeTest  {
          info.added = 10;
          info.changed = 0;
          info.deleted = 0;
-         assertThat(analize.diff(previous, current),is(info));
+         assertThat(analize.diff(previous, current), is(info));
     }
      @Test
-     public void diffTestChanged(){
+     public void diffTestChanged() {
           Analize analize = new Analize();
           List<User> previous = new ArrayList<>();
           previous.add(new User(1, "Вася"));
@@ -62,10 +62,10 @@ public class AnalizeTest  {
           info.added = 0;
           info.changed = 3;
           info.deleted = 0;
-          assertThat(analize.diff(previous, current),is(info));
+          assertThat(analize.diff(previous, current), is(info));
      }
      @Test
-     public void diffTestAdded(){
+     public void diffTestAdded() {
           Analize analize = new Analize();
           List<User> previous = new ArrayList<>();
           previous.add(new User(1, "Вася"));
@@ -79,12 +79,12 @@ public class AnalizeTest  {
           current.add(new User(3, "Толя"));
           current.add(new User(4, "Дима"));
           current.add(new User(5, "Саша"));
-          current.add(new User(6,"Зоя"));
+          current.add(new User(6, "Зоя"));
        //   current.add(new User(6,"Зоя"));
           Info info = new Info();
           info.added = 1;
           info.changed = 2;
           info.deleted = 0;
-          assertThat(analize.diff(previous, current),is(info));
+          assertThat(analize.diff(previous, current), is(info));
      }
 }

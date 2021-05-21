@@ -40,6 +40,6 @@ public class BackwardArrayItTest {
         assertThat(it.next(), is(3));
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(1));
-        assertThat(it.hasNext(),is(false));
+        assertThat(it.hasNext(), is(false));
     }
 }

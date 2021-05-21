@@ -27,20 +27,20 @@ public class ListUtilsTest {
     @Test
     public void whenAddAfterLast() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
-        ListUtils.addAfter(input,2, 3);
+        ListUtils.addAfter(input, 2, 3);
         assertThat(Arrays.asList(0, 1, 2, 3), Is.is(input));
     }
     @Test
     public void whenAddAfterLast2() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
-        ListUtils.addAfter(input,2, 3);
+        ListUtils.addAfter(input, 2, 3);
         assertThat(Arrays.asList(0, 1, 2, 3), Is.is(input));
-        ListUtils.removeIf(input,x -> x > 1);
+        ListUtils.removeIf(input, x -> x > 1);
         assertThat(Arrays.asList(0, 1), Is.is(input));
-        ListUtils.replaceIf(input,x -> x == 0,2);
-        assertThat(Arrays.asList(2,1),Is.is(input));
+        ListUtils.replaceIf(input, x -> x == 0, 2);
+        assertThat(Arrays.asList(2, 1), Is.is(input));
         List<Integer> elements = new ArrayList<>(Arrays.asList(3, 4, 2));
         ListUtils.removeAll(input, elements);
-        assertThat(Arrays.asList(1),Is.is(input));
+        assertThat(Arrays.asList(1), Is.is(input));
     }
 }
