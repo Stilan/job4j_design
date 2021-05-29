@@ -16,12 +16,16 @@ public class ArgsName {
     private void parse(String[] args) {
         /* TODO parse args to values. */
         try {
-            if (args.length != 2) {
-                throw new Exception();
-            }
         for (int i = 0; i < args.length; i++) {
             String[] string = args[i].substring(1).split("=");
-            values.put(string[0], string[1]);
+            if (!args[i].startsWith("-") || string.length != 2 || string[0] == null || string[1] == null) {
+                throw new Exception();
+            }
+                values.put(string[0], string[1]);
+
+        }
+        if (values.size() == 0) {
+            throw new Exception();
         }
     } catch (Exception e) {
         throw new IllegalArgumentException();
