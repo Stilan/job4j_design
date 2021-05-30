@@ -1,35 +1,27 @@
 package ru.job4j.io;
 
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
 
     public String get(String key) {
+      if (values.size() == 0) {
+          throw new IllegalArgumentException();
+      }
             return values.get(key);
     }
 
     private void parse(String[] args) {
         /* TODO parse args to values. */
-        try {
         for (int i = 0; i < args.length; i++) {
             String[] string = args[i].substring(1).split("=");
-            if (!args[i].startsWith("-") || string.length != 2 || string[0] == null || string[1] == null) {
-                throw new Exception();
+            if (!args[i].startsWith("-") || string.length != 2 || string[0].isEmpty() || string[1].isEmpty()) {
+                throw new IllegalArgumentException();
             }
                 values.put(string[0], string[1]);
-
         }
-        if (values.size() == 0) {
-            throw new Exception();
-        }
-    } catch (Exception e) {
-        throw new IllegalArgumentException();
-    }
     }
 
     public static ArgsName of(String[] args) {
