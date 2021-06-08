@@ -20,6 +20,8 @@ public class ConsoleChat {
 
     public void run() {
         try {
+            List<String> listProgramResponse = programResponse(path);
+            List<String> listWriteToFile = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String str = reader.readLine();
             boolean isRespond = true;
@@ -31,18 +33,21 @@ public class ConsoleChat {
                     isRespond = true;
                 }
                 if (isRespond) {
-                    String str2 = programResponse(path);
+                    Random random = new Random();
+                    int i = random.nextInt(listProgramResponse.size());
+                    String str2 = listProgramResponse.get(i);
                     System.out.println(str2);
-                    writeToFile(botAnswers, str2);
+                    listWriteToFile.add(str2);
                 }
-                writeToFile(botAnswers, str);
+                listWriteToFile.add(str);
                 str = reader.readLine();
             }
+            writeToFile(botAnswers, listWriteToFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public static String programResponse(String path) {
+    public static List<String> programResponse(String path) {
         List<String> lines = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             lines = br.lines().collect(Collectors.toList());
@@ -51,11 +56,11 @@ public class ConsoleChat {
         }
         Random random = new Random();
         int i = random.nextInt(lines.size());
-         return lines.get(i);
+         return lines;
     }
-    public static void writeToFile(String path, String str) {
+    public static void writeToFile(String path, List<String> str) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path, true))) {
-            pw.println(str);
+                pw.println(str);
         } catch (IOException e) {
             e.printStackTrace();
         }
