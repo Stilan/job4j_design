@@ -1,15 +1,28 @@
 package ru.job4j.io;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.*;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Arrays;
 
+@XmlRootElement(name = "institute")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Institute {
-    private final Student student;
-    private final String[] listOfFaculties;
-    private final int numberOfStudents;
-    private final boolean isHumanitarian;
+
+    private  Student student;
+    @XmlElementWrapper(name = "listOfFaculties")
+    @XmlElement(name = "faculty")
+    private  String[] listOfFaculties;
+    @XmlAttribute
+    private  int numberOfStudents;
+    @XmlAttribute
+    private  boolean isHumanitarian;
+    public Institute() {
+    }
 
     public Institute(Student student, int numberOfStudents, boolean isHumanitarian, String... listOfFaculties) {
         this.student = student;
@@ -28,27 +41,25 @@ public class Institute {
                 + '}';
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
         Student student = new Student("Вася", 24);
         Institute institute = new Institute(student, 1235, false, "Информатика и вычислительная техника ", "Бизнес-информатика");
 
-        final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(institute));
-
-        final String InstituteJSON = "{"
-                + "\"student\":"
-                + "{"
-                + "\"name\": Федя,"
-                +  "\"age\": 23 "
-                + "},"
-                + "\"isHumanitarian\": true,"
-                + "\"numberOfStudents\": 1345,"
-                + "\"listOfFaculties\":"
-                + "[\"Информатика и вычислительная техника\",\"Бизнес-информатика\"]"
-                + "}";
-
-        final  Institute instituteMod = gson.fromJson(InstituteJSON, Institute.class);
-        System.out.println(instituteMod);
+        JAXBContext context = JAXBContext.newInstance(Institute.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        String xml = "";
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(institute, writer);
+            xml = writer.getBuffer().toString();
+            System.out.println(xml);
+        } catch (Exception e) {
+        }
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        try (StringReader reader = new StringReader(xml)) {
+            Institute result = (Institute) unmarshaller.unmarshal(reader);
+            System.out.println(result);
+        }
 
     }
 }
