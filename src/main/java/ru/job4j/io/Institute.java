@@ -1,13 +1,16 @@
 package ru.job4j.io;
 
-import javax.xml.bind.JAXBContext;
+import org.json.JSONObject;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.*;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.Arrays;
+
+/**
+ *
+ * @author Litvinov Alexander
+ * @version 1.0
+ * @since 14.06.2021
+ */
 
 @XmlRootElement(name = "institute")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -22,6 +25,22 @@ public class Institute {
     @XmlAttribute
     private  boolean isHumanitarian;
     public Institute() {
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public String[] getListOfFaculties() {
+        return listOfFaculties;
+    }
+
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public boolean isHumanitarian() {
+        return isHumanitarian;
     }
 
     public Institute(Student student, int numberOfStudents, boolean isHumanitarian, String... listOfFaculties) {
@@ -45,21 +64,15 @@ public class Institute {
         Student student = new Student("Вася", 24);
         Institute institute = new Institute(student, 1235, false, "Информатика и вычислительная техника ", "Бизнес-информатика");
 
-        JAXBContext context = JAXBContext.newInstance(Institute.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        String xml = "";
-        try (StringWriter writer = new StringWriter()) {
-            marshaller.marshal(institute, writer);
-            xml = writer.getBuffer().toString();
-            System.out.println(xml);
-        } catch (Exception e) {
-        }
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        try (StringReader reader = new StringReader(xml)) {
-            Institute result = (Institute) unmarshaller.unmarshal(reader);
-            System.out.println(result);
-        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("numberOfStudents", institute.getNumberOfStudents());
+        jsonObject.put("isHumanitarian", institute.isHumanitarian());
+        jsonObject.put("student", institute.getStudent());
+        jsonObject.put("listOfFaculties", institute.getListOfFaculties());
+
+        System.out.println(jsonObject.toString());
+
+        System.out.println(new JSONObject(institute).toString());
 
     }
 }
