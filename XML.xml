@@ -1,0 +1,10 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+
+
+<institute numberOfStudents="1345" isHumanitarian="false">
+    <listOfFacultiess>
+        <listOfFaculties>Информатика и вычислительная техника</listOfFaculties>
+        <listOfFaculties>Бизнес-информатика</listOfFaculties>
+    </listOfFacultiess>
+   <student name="Вася" age="34"/>
+</institute>
