@@ -16,13 +16,13 @@ public class EchoServer {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
-                     BufferedReader in = new BufferedReader(
+                     BufferedReader Buffered = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
-                    String str2 = in.readLine();
+                    String str2 = Buffered.readLine();
                     str2 = str2.split("=")[1];
                     str2 = str2.split(" ")[0];
-                    while (!(str = in.readLine()).isEmpty()) {
+                    while (!(str = Buffered.readLine()).isEmpty()) {
                         System.out.println(str);
                     }
                     if (str2.equals("Hello")) {
