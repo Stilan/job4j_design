@@ -1,0 +1,13 @@
+create table animals(
+    id serial primary key,
+	name varchar(255),
+	area text
+);
+
+insert into animals(name, area) values('Гризли', 'США');
+
+update animals set name = 'Гриззли';
+
+delete from animals;
+
+select * from animals;
