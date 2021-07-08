@@ -1,0 +1,16 @@
+create table Cars(
+  id serial primary key,
+	brand varchar,
+	price int,
+	speed int
+);
+	
+insert into Cars(brand, price, speed) values('Kia', 900000, 200);
+insert into Cars(brand, price, speed) values('Hyundai', 800000, 220);
+insert into Cars(brand, price, speed) values('Lada', 700000, 180);
+
+update Cars set brand='kiaa';
+
+delete from Cars;
+
+select * from Cars;
