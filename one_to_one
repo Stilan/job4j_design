@@ -1,0 +1,16 @@
+create table gradeBookc(
+   id serial primary key,
+	number int
+);
+
+create table student(
+   id serial primary key,
+   name varchar(255),
+   gradeBookc_id int references gradeBookc(id) unique
+);
+
+insert into gradeBookc(number) values(35567);
+insert into student(name, gradeBookc_id) values('Иванов', 1);
+
+select * from student;
+select * from gradeBookc where id in (select id from student);
