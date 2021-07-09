@@ -1,0 +1,16 @@
+create table specialty(
+   id serial primary key,
+	specialtyName varchar(255)
+);
+
+create table student(
+   id serial primary key,
+   name varchar(255),
+   speciaty_id int references specialty(id)
+);
+  
+insert into specialty(specialtyName) values('инженер');
+insert into student(name, speciaty_id) values('Иванов', 1);
+
+select * from student;
+select * from specialty where id in (select id from student);
