@@ -21,10 +21,10 @@ Create table rules (
 	rule_id serial Primary key,
 	rulesRole varchar(255)
 );
---3
+--2
 Create table item (
     item_id serial PRIMARY KEY,
-    name varchar(255),
+    number int,
 	users_id int REFERENCES users(users_id),
     categories_id int REFERENCES categories(categories_id),
     state_id int REFERENCES state(state_id)
@@ -51,5 +51,31 @@ Create table state (
 	state_id serial PRIMARY KEY,
 	state varchar(255)
 );
+
+INSERT INTO role VALUES (1,'пользователь');
+INSERT INTO role VALUES (2,'администратор');
+
+INSERT INTO rules VALUES (1,'Чтение, просмотор');
+INSERT INTO rules VALUES (2, 'Удаление, добавление');
+
+INSERT INTO categories VALUES (1,'активная');
+INSERT INTO categories VALUES (2,'неактивна');
+
+INSERT INTO state VALUES (1,'в обработке');
+INSERT INTO state VALUES (2,'завершена');
+
+INSERT INTO item (item_id, name, users_id, categories_id, state_id) VALUES (1, ' ', 1, 2, 1);
+INSERT INTO item (item_id, name, users_id, categories_id, state_id) VALUES (2, ' ', 2, 1, 2);
+
+INSERT INTO comments(comments_id, comment, item_id) VALUES (1, 'Спасибо', 1);
+INSERT INTO comments(comments_id, comment, item_id) VALUES (2, 'Привет', 2);
+
+INSERT INTO users (users_id, name, role_id) VALUES (1, 'Иванов', 1);
+INSERT INTO users (users_id, name, role_id) VALUES (2, 'Сидоров', 2);
+
+INSERT INTO attachs (attachs_id, attachs, item_id) VALUES (1,'/Users/aleksandrlitvinov/Documents',2);
+
+
+
 
 
