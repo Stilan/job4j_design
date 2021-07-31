@@ -84,7 +84,6 @@ public class PrepareStatementDemo {
     public static void main(String[] args) throws Exception {
         PrepareStatementDemo psd = new PrepareStatementDemo();
         City c2 = new City(101, "Almet", 140000);
-//        psd.insert(c2);
         List<City> cityArrayList = psd.findAll();
         for (City c:cityArrayList) {
             System.out.println(c.getId() + " " + c.getName() + " " + c.getPopulation());
