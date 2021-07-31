@@ -62,6 +62,7 @@ insert into teens(name,gender) values('София','ж');
 insert into teens(name,gender) values('Полина','ж');
 insert into teens(name,gender) values('Андрей','м');
 
-select m.name,d.name from teens m  cross join teens d;
+drop table teens;
+select m.name,m.gender,d.name,d.gender from teens m  cross join teens d where m.gender != d.gender;
 
 
